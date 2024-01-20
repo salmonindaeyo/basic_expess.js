@@ -1,18 +1,19 @@
-// ทำการ import http เข้ามาเพื่อทำการ run server
-const http = require("http");
+const express = require("express");
+const app = express();
 
-// กำหนด host และ port เริ่มต้น
-const host = "localhost";
-const port = 8000;
+// Sample book data
+const books = [
+  { id: 1, title: "Book 1", author: "Author 1" },
+  { id: 2, title: "Book 2", author: "Author 2" },
+  { id: 3, title: "Book 3", author: "Author 3" },
+];
 
-// กำหนดค่าเริ่มต้นของ server เมื่อเปิดหน้าเว็บที่ localhost:8000 ขึ้นมา
-const requestListener = function (req, res) {
-  res.writeHead(200);
-  res.end("My first server!");
-};
+// Endpoint to get all books
+app.get("/api/books", (req, res) => {
+  res.json(books);
+});
 
-// ทำการ run server
-const server = http.createServer(requestListener);
-server.listen(port, host, () => {
-  console.log(`Server is running on http://${host}:${port}`);
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
